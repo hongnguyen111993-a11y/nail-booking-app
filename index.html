@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Nail Booking</title>
+</head>
+<body>
+  <h1>Tiệm Nail Showa</h1>
+  <input id="message" placeholder="Nhập tin nhắn..." />
+  <button onclick="send()">Gửi</button>
+  <div id="chat"></div>
+
+  <script>
+    function send() {
+      const input = document.getElementById("message");
+      const chat = document.getElementById("chat");
+      chat.innerHTML += "<p>Bạn: " + input.value + "</p>";
+      input.value = "";
+      input.focus();
+    }
+  </script>
+</body>
+</html>
