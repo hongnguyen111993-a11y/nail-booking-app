@@ -10,12 +10,42 @@
   <div id="chat"></div>
 
   <script>
-    function send() {
-      const input = document.getElementById("message");
-      const chat = document.getElementById("chat");
-      chat.innerHTML += "<p>Bạn: " + input.value + "</p>";
-      input.value = "";
-      input.focus();
+    <script type="module">
+import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+const genAI = new GoogleGenerativeAI("AIzaSyA3l8dQxx6UwpcMwADvLZzmRQMe8MVHWQ8");
+
+const model = genAI.getGenerativeModel({
+  model: "gemini-1.5-flash",
+  systemInstruction: `
+Bạn là lễ tân của 紬ネイルサロン (Tsumugi Nail Salon) tại Nhật.
+
+Quy tắc:
+- Nếu khách viết tiếng Nhật → trả lời tiếng Nhật lịch sự nhẹ (keigo).
+- Nếu khách viết tiếng Việt → trả lời tiếng Việt.
+- Khi khách muốn đặt lịch → hỏi rõ ngày, giờ, dịch vụ.
+- Giờ làm việc: 10:00–19:00.
+- Nếu ngoài giờ → đề xuất giờ khác.
+- Giữ phong cách nhẹ nhàng, tối giản kiểu Nhật.
+- Không dùng emoji.
+`
+});
+
+async function send() {
+  const input = document.getElementById("message");
+  const chat = document.getElementById("chat");
+  const text = input.value;
+
+  chat.innerHTML += "<p><b>Khách:</b> " + text + "</p>";
+  input.value = "";
+  input.focus();
+
+  const result = await model.generateContent(text);
+  const reply = result.response.text();
+
+  chat.innerHTML += "<p><b>紬ネイルサロン:</b> " + reply + "</p>";
+}
+</script>
     }
   </script>
 </body>
