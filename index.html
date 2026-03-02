@@ -8,12 +8,10 @@
   <input id="message" placeholder="Nhập tin nhắn..." />
   <button onclick="send()">Gửi</button>
   <div id="chat"></div>
-
-  <script>
-    <script type="module">
+<script type="module">
 import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI("AIzaSyA3l8dQxx6UwpcMwADvLZzmRQMe8MVHWQ8");
+const genAI = new GoogleGenerativeAI("YOUR_API_KEY");
 
 const model = genAI.getGenerativeModel({
   model: "gemini-1.5-flash",
@@ -45,5 +43,7 @@ async function send() {
 
   chat.innerHTML += "<p><b>紬ネイルサロン:</b> " + reply + "</p>";
 }
+</script>
+  
 </body>
 </html>
